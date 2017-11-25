@@ -3,29 +3,29 @@ body {
     padding: 0;
 }
 #wrapper{
-    /*padding-top: 60px;*/
-    width: 1000px;
+    width: 600px;
     height: 100%;
     margin: 0 auto;
-    /*background-color: #00ff21;*/
+    margin-top: 100px;
+    border: 2px solid #808080;
 }
 
 .step{
-    background-color: #b6ff00;
-    margin: 3px;
+    margin: 0 auto;
+    width: 500px;
 }
 .step_title{
-    background-color: #00ff90;
-    margin: 3px;
+    margin: 0 auto;
+    width: 500px;
 }
 .input_date{
     margin: 0 auto;
     width: 500px;
     height: 50px;
-    border: 2px solid #808080;
 }
 .items{
     display: inline-block;
+    width: 100px;
 }
 .inputs{
     display: inline-block;

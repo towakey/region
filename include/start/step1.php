@@ -7,11 +7,16 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="setup.css">
-        <title>Language Check</title>
+        <title>SQLの設定</title>
     </head>
     <body>
-        <div class="step">Step1</div>
-        <div class="title-en">Language Check</div>
-        <div class="title-ja">言語選択</div>
+        <div id="wrapper">
+            <div class="step">Step2</div>
+            <div class="step_title">SQLの設定</div>
+            <div class="input_date"><div class="items">HostName</div><div class="inputs"><input type="text"></div></div>
+            <div class="input_date"><div class="items">UserName</div><div class="inputs"><input type="text"></div></div>
+            <div class="input_date"><div class="items">Password</div><div class="inputs"><input type="text"></div></div>
+            <div class="input_date"><div class="items">DateBase</div><div class="inputs"><input type="text"></div></div>
+        </div>
     </body>
 </html>
