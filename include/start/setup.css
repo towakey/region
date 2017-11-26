@@ -13,10 +13,12 @@ body {
 .step{
     margin: 0 auto;
     width: 500px;
+    padding: 10px;
 }
 .step_title{
     margin: 0 auto;
     width: 500px;
+    padding: 10px;
 }
 .input_date{
     margin: 0 auto;
@@ -29,4 +31,16 @@ body {
 }
 .inputs{
     display: inline-block;
+}
+.entry{
+    margin: 0 auto;
+    width: 300px;
+}
+#entry-button{
+    border: 0;
+    padding: 10px;
+    color: #000;
+    border: solid 1px #ccc;
+    margin: 0 0 20px;
+    width: 300px;
 }
