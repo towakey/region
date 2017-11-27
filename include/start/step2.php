@@ -27,7 +27,7 @@ if(is_readable(realpath("../")."/setting.in")){
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" type="text/css" href="setup.css">
-        <title>Step1 SQLの設定</title>
+        <title>Step2 ユーザー情報の登録</title>
     </head>
     <body>
         <div id="wrapper">
@@ -35,12 +35,12 @@ if(is_readable(realpath("../")."/setting.in")){
 if($flg==0){
 echo <<<EOT
             <form action="{$_SERVER["PHP_SELF"]}" method="POST">
-                <div class="step">Step1</div>
-                <div class="step_title">SQLの設定</div>
-                <div class="input_date"><div class="items">HostName</div><div class="inputs"><input type="text" name="hostname" value="$hostname"></div></div>
-                <div class="input_date"><div class="items">UserName</div><div class="inputs"><input type="text" name="username" value="$username"></div></div>
-                <div class="input_date"><div class="items">Password</div><div class="inputs"><input type="text" name="password" value="$password"></div></div>
-                <div class="input_date"><div class="items">DateBase</div><div class="inputs"><input type="text" name="datebase" value="$datebase"></div></div>
+                <div class="step">Step2</div>
+                <div class="step_title">ユーザー登録</div>
+                <div class="input_date"><div class="items_user">ユーザー名</div><div class="inputs"><input type="text" name="hostname" value="$hostname"></div></div>
+                <div class="input_date"><div class="items_user">パスワード</div><div class="inputs"><input type="text" name="username" value="$username"></div></div>
+                <div class="input_date"><div class="items_user">パスワード（確認）</div><div class="inputs"><input type="text" name="password" value="$password"></div></div>
+                <div class="input_date"><div class="items_user">メールアドレス</div><div class="inputs"><input type="text" name="datebase" value="$datebase"></div></div>
                 <div class="entry"><input type="submit" name="submit" value="登録する" id="entry-button"></div>
             </form>
 EOT;
@@ -64,7 +64,7 @@ EOT;
         echo "Datebaseの選択に成功しました";
     }
     echo "</div></div>";
-    echo "<div class=\"next_link\"><a href=\"./step2.php\" class=\"next_link_button\">ユーザー登録へ</a></div>";
+    echo "<div class=\"entry\"><input type=\"submit\" name=\"submit\" value=\"ユーザー登録する\" id=\"entry-button\"></div>";
 }
 ?>
         </div>
