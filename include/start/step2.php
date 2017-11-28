@@ -7,14 +7,18 @@ if(is_readable(realpath("../")."/setting.in")){
     header("Location:../../login.php");
     exit;
 }else{
+    $flg=0;
     //echo "Setting Nothing";
     if(isset($_POST["submit"])){
-        //
-        $flg=1;
-        $hostname=strip_tags(htmlspecialchars($_POST["hostname"],ENT_QUOTES));
+        $flg=strip_tags(htmlspecialchars($_POST["flg"],ENT_QUOTES));
         $username=strip_tags(htmlspecialchars($_POST["username"],ENT_QUOTES));
-        $password=strip_tags(htmlspecialchars($_POST["password"],ENT_QUOTES));
-        $datebase=strip_tags(htmlspecialchars($_POST["datebase"],ENT_QUOTES));
+        $password1=strip_tags(htmlspecialchars($_POST["password1"],ENT_QUOTES));
+        $email=strip_tags(htmlspecialchars($_POST["email"],ENT_QUOTES));
+        if($flg==1){
+            $flg=0;
+        }else{
+            $flg=1;
+        }
     }else{
         $flg=0;
     }
@@ -32,40 +36,30 @@ if(is_readable(realpath("../")."/setting.in")){
     <body>
         <div id="wrapper">
 <?
+echo "<form action=\"{$_SERVER["PHP_SELF"]}\" method=\"POST\">";
 if($flg==0){
 echo <<<EOT
-            <form action="{$_SERVER["PHP_SELF"]}" method="POST">
                 <div class="step">Step2</div>
                 <div class="step_title">ユーザー登録</div>
-                <div class="input_date"><div class="items_user">ユーザー名</div><div class="inputs"><input type="text" name="hostname" value="$hostname"></div></div>
-                <div class="input_date"><div class="items_user">パスワード</div><div class="inputs"><input type="text" name="username" value="$username"></div></div>
-                <div class="input_date"><div class="items_user">パスワード（確認）</div><div class="inputs"><input type="text" name="password" value="$password"></div></div>
-                <div class="input_date"><div class="items_user">メールアドレス</div><div class="inputs"><input type="text" name="datebase" value="$datebase"></div></div>
-                <div class="entry"><input type="submit" name="submit" value="登録する" id="entry-button"></div>
-            </form>
+                <div class="input_date"><div class="items_user">ユーザー名</div><div class="inputs"><input type="text" name="username" size=40 value="$username" required></div></div>
+                <div class="input_date"><div class="items_user">パスワード</div><div class="inputs"><input type="text" name="password1" size=40 value="$password1" required></div></div>
+                <div class="input_date"><div class="items_user">メールアドレス</div><div class="inputs"><input type="email" name="email" size=40 value="$email" required></div></div>
+                <div class="entry"><input type="submit" name="submit" value="確認する" id="entry-button"></div>
 EOT;
 }elseif($flg==1){
-    echo "<div class=\"step\">Step1</div>";
-    echo "<div class=\"step_title\">SQLの設定</div>";
-    echo "<div class=\"input_date\"><div class=\"items\"></div><div class=\"inputs\">";
-    $con=mysql_connect($hostname,$username,$password);
-    if(!$con){
-        //MySQL Connect Error
-        echo "MySQLの接続に失敗しました";
-    }else{
-        //MySQL Connect OK
-        echo "MySQLの接続に成功";
-    }
-    echo "</div></div>";
-    echo "<div class=\"input_date\"><div class=\"items\"></div><div class=\"inputs\">";
-    if(!mysql_select_db($datebase,$con)){
-        echo "Datebaseの選択に失敗しました";
-    }else{
-        echo "Datebaseの選択に成功しました";
-    }
-    echo "</div></div>";
-    echo "<div class=\"entry\"><input type=\"submit\" name=\"submit\" value=\"ユーザー登録する\" id=\"entry-button\"></div>";
+    echo "<div class=\"step\">Step2</div>";
+    echo "<div class=\"step_title\">ユーザー登録</div>";
+    echo "<div class=\"input_date\"><div class=\"items_user\">ユーザー名</div><div class=\"inputs\">$username</div></div>";
+    echo "<div class=\"input_date\"><div class=\"items_user\">パスワード</div><div class=\"inputs\">$password1</div></div>";
+    echo "<div class=\"input_date\"><div class=\"items_user\">メールアドレス</div><div class=\"inputs\">$email</div></div>";
+    echo "<input type=\"hidden\" name=\"username\" value=\"$username\">";
+    echo "<input type=\"hidden\" name=\"password1\" value=\"$password1\">";
+    echo "<input type=\"hidden\" name=\"email\" value=\"$email\">";
+    echo "<input type=\"hidden\" name=\"flg\" value=\"$flg\">";
+    echo "<div class=\"input_date\"><div class=\"items_user\"></div><div class=\"inputs\">以上で登録します、よろしいですか？</div></div>";
+    echo "<div class=\"entry\"><input type=\"button\" name=\"submit\" value=\"ユーザー登録\" id=\"entry-button\" onClick=\"location.href='../../index.php'\"><input type=\"submit\" name=\"submit\" value=\"やり直す\" id=\"entry-button\"></div>";
 }
+echo "</form>";
 ?>
         </div>
     </body>

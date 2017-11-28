@@ -9,12 +9,16 @@ if(is_readable(realpath("../")."/setting.in")){
 }else{
     //echo "Setting Nothing";
     if(isset($_POST["submit"])){
-        //
-        $flg=1;
         $hostname=strip_tags(htmlspecialchars($_POST["hostname"],ENT_QUOTES));
         $username=strip_tags(htmlspecialchars($_POST["username"],ENT_QUOTES));
         $password=strip_tags(htmlspecialchars($_POST["password"],ENT_QUOTES));
         $datebase=strip_tags(htmlspecialchars($_POST["datebase"],ENT_QUOTES));
+        $flg=strip_tags(htmlspecialchars($_POST["flg"],ENT_QUOTES));
+        if($flg==1){
+            $flg=0;
+        }else{
+            $flg=1;
+        }
     }else{
         $flg=0;
     }
@@ -32,6 +36,7 @@ if(is_readable(realpath("../")."/setting.in")){
     <body>
         <div id="wrapper">
 <?
+echo "<form action=\"{$_SERVER["PHP_SELF"]}\" method=\"POST\">";
 if($flg==0){
 echo <<<EOT
             <form action="{$_SERVER["PHP_SELF"]}" method="POST">
@@ -48,6 +53,8 @@ EOT;
     echo "<div class=\"step\">Step1</div>";
     echo "<div class=\"step_title\">SQLの設定</div>";
     echo "<div class=\"input_date\"><div class=\"items\"></div><div class=\"inputs\">";
+    $chk1=FALSE;
+    $chk2=FALSE;
     $con=mysql_connect($hostname,$username,$password);
     if(!$con){
         //MySQL Connect Error
@@ -55,6 +62,7 @@ EOT;
     }else{
         //MySQL Connect OK
         echo "MySQLの接続に成功";
+        $chk1=TRUE;
     }
     echo "</div></div>";
     echo "<div class=\"input_date\"><div class=\"items\"></div><div class=\"inputs\">";
@@ -62,10 +70,21 @@ EOT;
         echo "Datebaseの選択に失敗しました";
     }else{
         echo "Datebaseの選択に成功しました";
+        $chk2=TRUE;
     }
     echo "</div></div>";
-    echo "<div class=\"next_link\"><a href=\"./step2.php\" class=\"next_link_button\">ユーザー登録へ</a></div>";
+    if($chk1 || $chk2){
+        echo "<div class=\"entry\"><input type=\"button\" name=\"submit\" value=\"ユーザー登録へ\" id=\"entry-button\" onClick=\"location.href='./step2.php'\"></div>";
+    }else{
+        echo "<input type=\"hidden\" name=\"hostname\" value=\"$hostname\">";
+        echo "<input type=\"hidden\" name=\"username\" value=\"$username\">";
+        echo "<input type=\"hidden\" name=\"password\" value=\"$password\">";
+        echo "<input type=\"hidden\" name=\"datebase\" value=\"$datebase\">";
+        echo "<input type=\"hidden\" name=\"flg\" value=\"$flg\">";
+        echo "<div class=\"entry\"><input type=\"submit\" name=\"submit\" value=\"入力をやり直す\" id=\"entry-button\"></div>";
+    }
 }
+echo "</form>";
 ?>
         </div>
     </body>

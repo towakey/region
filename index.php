@@ -9,6 +9,6 @@ require_once("./include/function.php");
         <title></title>
     </head>
     <body>
-        
+        index.php
     </body>
 </html>

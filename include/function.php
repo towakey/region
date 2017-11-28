@@ -12,6 +12,5 @@ $ini=parse_ini_file($ini_path,true);
 $sql_user=$ini["sql_setting"]["user"];
 $sql_pass=$ini["sql_setting"]["pass"];
 
-print $sql_pass;
 
 ?>
