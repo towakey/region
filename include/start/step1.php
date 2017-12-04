@@ -1,7 +1,7 @@
 <?php
 header("Content-type: text/html; charset=utf-8");
 
-if(is_readable(realpath("../")."/setting.in")){
+if(is_readable(realpath("../")."/setting.ini")){
     //SQLの設定ファイルがあるならLogin.phpへ
     http_response_code(301);
     header("Location:../../login.php");
@@ -42,10 +42,10 @@ echo <<<EOT
             <form action="{$_SERVER["PHP_SELF"]}" method="POST">
                 <div class="step">Step1</div>
                 <div class="step_title">SQLの設定</div>
-                <div class="input_date"><div class="items">HostName</div><div class="inputs"><input type="text" name="hostname" value="$hostname"></div></div>
-                <div class="input_date"><div class="items">UserName</div><div class="inputs"><input type="text" name="username" value="$username"></div></div>
-                <div class="input_date"><div class="items">Password</div><div class="inputs"><input type="text" name="password" value="$password"></div></div>
-                <div class="input_date"><div class="items">DateBase</div><div class="inputs"><input type="text" name="datebase" value="$datebase"></div></div>
+                <div class="input_date"><div class="items">HostName</div><div class="inputs"><input type="text" name="hostname" value="$hostname" required></div></div>
+                <div class="input_date"><div class="items">UserName</div><div class="inputs"><input type="text" name="username" value="$username" required></div></div>
+                <div class="input_date"><div class="items">Password</div><div class="inputs"><input type="text" name="password" value="$password" required></div></div>
+                <div class="input_date"><div class="items">DateBase</div><div class="inputs"><input type="text" name="datebase" value="$datebase" required></div></div>
                 <div class="entry"><input type="submit" name="submit" value="登録する" id="entry-button"></div>
             </form>
 EOT;
@@ -73,9 +73,28 @@ EOT;
         $chk2=TRUE;
     }
     echo "</div></div>";
-    if($chk1 || $chk2){
+    if($chk1 && $chk2){
+        //MySQLへの接続、DBへの接続が成功
+        //setting.iniを作成
+        $filename=realpath("../")."/setting.ini";
+        file_put_contents($filename,"[sql_setting]\nhostname={$hostname}\nusername={$username}\npassword={$password}\ndatebase={$datebase}\n");
+        echo "<div class=\"input_date\"><div class=\"items\"></div><div class=\"inputs\">Settingファイルを作成しました";
+        echo "</div></div>";
+        
+        $mysqli=new mysqli($hostname,$username,$password,$datebase);
+        if($mysqli->connect_error){
+            echo $mysqli->connect_error;
+            exit();
+        }else{
+            $mysqli->set_charset("utf8");
+        }
+        $sql="CREATE TABLE personalinfo(item VARCHAR(20) NOT NULL,contents VARCHAR(254))";
+        mysqli_query($mysqli,$sql);
+        $mysqli->close();
+
         echo "<div class=\"entry\"><input type=\"button\" name=\"submit\" value=\"ユーザー登録へ\" id=\"entry-button\" onClick=\"location.href='./step2.php'\"></div>";
     }else{
+        //MySQL、DBのどちらか、もしくは両方の接続が失敗
         echo "<input type=\"hidden\" name=\"hostname\" value=\"$hostname\">";
         echo "<input type=\"hidden\" name=\"username\" value=\"$username\">";
         echo "<input type=\"hidden\" name=\"password\" value=\"$password\">";
