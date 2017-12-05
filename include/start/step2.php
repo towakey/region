@@ -33,7 +33,7 @@ if(is_readable(realpath("../")."/setting.ini")){
                 $flg=0;
             }elseif($_POST["submit"]=="OK"){
                 $flg=2;
-                $sql="INSERT INTO personalinfo VALUES ('username','$user'),('password','$password1'),('email','$email')";
+                $sql="INSERT INTO personalinfo VALUES ('username','$user',0),('password','$password1',0),('email','$email',0)";
                 $mysqli->query($sql);
             }
         }else{

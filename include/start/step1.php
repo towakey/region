@@ -88,7 +88,7 @@ EOT;
         }else{
             $mysqli->set_charset("utf8");
         }
-        $sql="CREATE TABLE personalinfo(item VARCHAR(20) NOT NULL,contents VARCHAR(254))";
+        $sql="CREATE TABLE personalinfo(item VARCHAR(20) NOT NULL,contents VARCHAR(254),flag INT NOT NULL DEFAULT '0')";
         mysqli_query($mysqli,$sql);
         $mysqli->close();
 
