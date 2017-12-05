@@ -7,6 +7,7 @@ header("Content-type: text/html; charset=utf-8");
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="setup.css">
         <title>ようこそ</title>
     </head>
     <body>
