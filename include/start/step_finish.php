@@ -14,7 +14,7 @@ header("Content-type: text/html; charset=utf-8");
         <div id="wrapper">
             <div class="step">Welcome!!!</div>
             <div class="step_title">ようこそregionへ！</div>
-            <div class="entry"><button type="button" name="submit" value="" id="entry-button" onClick="location.href='../../index.php'">トップページへ</button></div>
+            <div class="entry"><button type="button" name="submit" value="" id="entry-button" onClick="location.href='../../login.php'">ログインページへ</button></div>
         </div>
     </body>
 </html>
