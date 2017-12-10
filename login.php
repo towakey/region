@@ -5,16 +5,17 @@ if(isset($_POST["submit"])){
     $user=htmlspecialchars($_POST["username"],ENT_QUOTES);
     $pass=htmlspecialchars($_POST["password"],ENT_QUOTES);
     if(is_readable(realpath("./include")."/setting.ini")){
-        $login_check=new login_check();
-        if($login_check->check($user,$pass)){
+        $login_auth=new login_auth();
+        if($login_auth->auth($user,$pass)){
             session_start();
             $_SESSION["USERID"]=$user;
+            $login_auth->close();
             http_response_code(301);
             header("Location:./index.php");
             exit;
         }else{
         }
-        $login_check->close();
+        $login_auth->close();
     }else{
     }
 }

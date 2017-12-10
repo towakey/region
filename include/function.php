@@ -8,7 +8,7 @@ if(!is_readable($path."setting.ini")){
     exit;
 }
 
-class login_check{
+class login_auth{
     private $mysqli;
 
     function __construct(){
@@ -25,7 +25,7 @@ class login_check{
         $this->mysqli=new mysqli($hostname,$username,$password,$datebase);
         $this->mysqli->set_charset("utf8");
     }
-    function check($input_user,$input_pass){
+    function auth($input_user,$input_pass){
         $sql="SELECT * FROM personalinfo WHERE item = 'username' OR item = 'password'";
         if($result=$this->mysqli->query($sql)){
             while($row=$result->fetch_assoc()){
@@ -48,10 +48,51 @@ class login_check{
             return FALSE;
         }
     }
+    function check(){
+        
+    }
     function close(){
         $this->mysqli->close();
     }
 }
 
+function login_check(){
+    $path=dirname(__FILE__);
+    $ini_path=$path."/setting.ini";
+
+    $ini=parse_ini_file($ini_path,true);
+
+    $hostname=$ini["sql_setting"]["hostname"];
+    $username=$ini["sql_setting"]["username"];
+    $password=$ini["sql_setting"]["password"];
+    $datebase=$ini["sql_setting"]["datebase"];
+
+    $mysqli=new mysqli($hostname,$username,$password,$datebase);
+    $mysqli->set_charset("utf8");
+
+    $sql="SELECT * FROM personalinfo WHERE item = 'username'";
+    if($result=$mysqli->query($sql)){
+        while($row=$result->fetch_assoc()){
+            switch($row["item"]){
+                case "username":
+                $user=$row["contents"];
+                break;
+            }
+        }
+        $result->close();
+
+        $session_user=$_SESSION["USERID"];
+        
+        if($user === $session_user){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }else{
+        return FALSE;
+    }
+
+    $mysqli->close();
+}
 
 ?>

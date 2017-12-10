@@ -1,14 +1,22 @@
 <?php
-require_once("./include/function.php");
+require_once(realpath("./")."/include/function.php");
+session_start();
+if(login_check()){
+    echo"session_ok";
+}else{
+    http_response_code(301);
+    header("Location:./login.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title></title>
+        <title>legion</title>
     </head>
     <body>
-        index.php
+        <a href="logout.php">ログアウト</a>
     </body>
 </html>
