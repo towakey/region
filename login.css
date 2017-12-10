@@ -1,12 +1,11 @@
 body {
     margin: 0;
-    padding: 0;
+    padding-top: 100px;
 }
 #wrapper{
     position: relative;
     width: 100%;
     height: 100%;
-    border: 2px solid #808080;
 }
 #login_box{
     top: 100px;
@@ -26,8 +25,17 @@ body {
     display: inline-block;
 }
 
+.title_block{
+    padding: 10px;
+}
+.title_contents{
+    
+}
+
 #login_button{
     border: solid 1px #ccc;
     width: 200px;
     height: 50px;
+    margin: 0 auto;
+    display: block;
 }
