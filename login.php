@@ -7,6 +7,8 @@ if(isset($_POST["submit"])){
     if(is_readable(realpath("./include")."/setting.ini")){
         $login_check=new login_check();
         if($login_check->check($user,$pass)){
+            session_start();
+            $_SESSION["USERID"]=$user;
             http_response_code(301);
             header("Location:./index.php");
             exit;
